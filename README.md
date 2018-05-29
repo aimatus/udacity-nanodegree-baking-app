@@ -36,7 +36,7 @@ expelled.
 must be included in all works derived from this project.
 
 This project will continue to evolve, but Udacity's Nanodegree snapshot
-should be available in a project branch called: `udacity-nanodegree-popular-movies`
+should be available in a project branch called: `udacity-nanodegree-baking-app`
 
 ## **LICENSE**
 
