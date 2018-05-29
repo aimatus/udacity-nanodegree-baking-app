@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Baking App Project
+ * Udacity Associate Android Developer Fast Track Nanodegree Program
+ * October 2017
+ *
+ * @author Abraham Matus
+ */
+-->
+<fragment
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/recipe_detail_fragment"
+    android:name="com.aimatus.bakingapp.recipedetail.RecipeStepsFragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"/>

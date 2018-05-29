@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Baking App Project
+ * Udacity Associate Android Developer Fast Track Nanodegree Program
+ * October 2017
+ *
+ * @author Abraham Matus
+ */
+-->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:divider="?android:attr/dividerVertical"
+              android:orientation="vertical"
+              android:showDividers="end">
+
+    <TextView
+        android:id="@+id/tv_recipe_step"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textSize="24sp"
+        tools:text="Recipe Step"/>
+
+</LinearLayout>

@@ -1,3 +1,28 @@
+<!--
+/**
+ * Baking App Project
+ * Udacity Associate Android Developer Fast Track Nanodegree Program
+ * October 2017
+ *
+ * @author Abraham Matus
+ */
+-->
 <resources>
     <string name="app_name">BakingApp</string>
+    <string name="appwidget_text">EXAMPLE</string>
+    <string name="add_widget">Add widget</string>
+    <string name="no_recipe_selected">No recipe selected yet</string>
+    <string name="ingredients_toast_message">Use the Widget to read the ingredients ;)</string>
+    <string name="fetching_error">Could not fetch recipes. Check your Internet connection. Pull to refresh and try again.</string>
+    <string name="video_not_available">Video not available.</string>
+    <string name="ingredients">Ingredients</string>
+    <string name="recipe_ingredients">Recipe ingredients</string>
+    <string name="widget_item_format">%1$d. %2$s, %3$s %4$s</string>
+
+    <string name="widget_intent_action" translatable="false">android.appwidget.action.APPWIDGET_UPDATE</string>
+    <string name="recipe_tag" translatable="false">recipe</string>
+    <string name="step_index_tag" translatable="false">step_index</string>
+    <string name="recipes_tag" translatable="false">recipes</string>
+    <string name="exo_player_position_tag">exo_player_position</string>
+    <string name="exo_player_play_when_ready_tag">exo_player_play_when_ready</string>
 </resources>

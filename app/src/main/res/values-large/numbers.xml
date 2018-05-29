@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+/**
+ * Baking App Project
+ * Udacity Associate Android Developer Fast Track Nanodegree Program
+ * October 2017
+ *
+ * @author Abraham Matus
+ */
+-->
+<resources>
+    <integer name="grid_columns">3</integer>
+</resources>

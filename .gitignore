@@ -157,6 +157,7 @@ fabric.properties
 .idea/**/sqlDataSources.xml
 .idea/**/dynamic.xml
 .idea/**/uiDesigner.xml
+.idea/markdown*
 
 # Gradle:
 .idea/**/gradle.xml
