@@ -1,9 +1,13 @@
-# UDACITY'S ANDROID NANODEGREE BAKING APP PROJECT
+# **UDACITY'S ANDROID NANODEGREE - BAKING APP PROJECT**
 
 This project is based on **Baking App** project from the 2017 [Udacity's
 Associate Android Developer Fast Track Nanodegree Program](https://ae.udacity.com/course/associate-android-developer-fast-track--nd818).
 
-## LIBRARIES
+<p align="center"><br>
+<img src="https://raw.githubusercontent.com/aimatus/udacity-nanodegree-baking-app/master/screenshots/device-2018-05-28-202131.png">
+</p>
+
+## **LIBRARIES**
 
 * [Gson](https://github.com/google/gson)
 * [Picasso](http://square.github.io/picasso/)
@@ -11,7 +15,7 @@ Associate Android Developer Fast Track Nanodegree Program](https://ae.udacity.co
 * [Buuterknife](http://jakewharton.github.io/butterknife/)
 * [ExoPlayer](https://github.com/google/ExoPlayer)
 
-## DISCLAIMER
+## **DISCLAIMER**
 
 Based on [Lara Martín Project Licence](https://github.com/laramartin/android_movies):
 
@@ -34,7 +38,7 @@ must be included in all works derived from this project.
 This project will continue to evolve, but Udacity's Nanodegree snapshot
 should be available in a project branch called: `udacity-nanodegree-popular-movies`
 
-## LICENCE
+## **LICENSE**
 
 ```
 Copyright 2018 Abraham Matus
