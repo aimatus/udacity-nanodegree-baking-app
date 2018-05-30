@@ -17,7 +17,8 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mIsLargeScreen = getResources().getInteger(R.integer.grid_columns) > 1;
+        int smallScreenDeviceColumns = 1;
+        mIsLargeScreen = getResources().getInteger(R.integer.grid_columns) > smallScreenDeviceColumns;
         Intent intent = getIntent();
         if (intent.hasExtra(getString(R.string.recipe_tag))) {
             mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
