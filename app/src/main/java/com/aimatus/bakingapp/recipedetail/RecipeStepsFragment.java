@@ -22,19 +22,12 @@ public class RecipeStepsFragment extends Fragment {
 
     @BindView(R.id.tv_ingredients) TextView ingredientsTextView;
 
-    private OnStepClickListener mCallback;
-
     public RecipeStepsFragment() {
     }
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        try {
-            mCallback = (OnStepClickListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() + " must implement OnImageClickListener");
-        }
     }
 
     @Nullable
