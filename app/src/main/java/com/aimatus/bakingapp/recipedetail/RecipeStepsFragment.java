@@ -22,7 +22,7 @@ public class RecipeStepsFragment extends Fragment {
 
     @BindView(R.id.tv_ingredients) TextView ingredientsTextView;
 
-    OnStepClickListener mCallback;
+    private OnStepClickListener mCallback;
 
     public RecipeStepsFragment() {
     }

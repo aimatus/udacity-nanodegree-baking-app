@@ -16,12 +16,12 @@ import java.util.List;
 
 public class IngredientsWidgetProvider extends AppWidgetProvider {
 
-    static final String RECIPE = "mRecipe";
+    private static final String RECIPE = "mRecipe";
     static List<Ingredient> ingredients = new ArrayList<>();
-    static String text;
+    private static String text;
 
-    static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
-                                int appWidgetId) {
+    private static void updateAppWidget(Context context, AppWidgetManager appWidgetManager,
+                                        int appWidgetId) {
 
         // Construct the RemoteViews object
         RemoteViews views = new RemoteViews(context.getPackageName(), R.layout.ingredients_widget_provider);

@@ -28,7 +28,7 @@ public class RecipesActivityScreenTest {
     private IdlingResource mIdlingResource;
 
     @Rule
-    public ActivityTestRule<RecipesActivity> mActivityTestRule = new ActivityTestRule<>(RecipesActivity.class);
+    public final ActivityTestRule<RecipesActivity> mActivityTestRule = new ActivityTestRule<>(RecipesActivity.class);
 
     @Before
     public void registerIdlingResource() {

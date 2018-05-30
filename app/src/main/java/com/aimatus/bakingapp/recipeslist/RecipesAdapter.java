@@ -55,9 +55,9 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
 
     public static class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-        CardView recipeCardView;
-        TextView recipeTitleTextView;
-        ImageView recipeImageView;
+        final CardView recipeCardView;
+        final TextView recipeTitleTextView;
+        final ImageView recipeImageView;
 
         RecipesViewHolder(View itemView) {
             super(itemView);

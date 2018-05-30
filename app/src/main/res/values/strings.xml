@@ -1,7 +1,5 @@
 <resources>
     <string name="app_name">BakingApp</string>
-    <string name="appwidget_text">EXAMPLE</string>
-    <string name="add_widget">Add widget</string>
     <string name="no_recipe_selected">No recipe selected yet</string>
     <string name="ingredients_toast_message">Use the Widget to read the ingredients ;)</string>
     <string name="fetching_error">Could not fetch recipes. Check your Internet connection. Pull to refresh and try again.</string>
@@ -16,4 +14,8 @@
     <string name="recipes_tag" translatable="false">recipes</string>
     <string name="exo_player_position_tag">exo_player_position</string>
     <string name="exo_player_play_when_ready_tag">exo_player_play_when_ready</string>
+    <string name="thumbnail_image">Thumbnail Image</string>
+    <string name="recipe_image">Recipe Image</string>
+    <string name="previous_step">Previous Step</string>
+    <string name="next_step">Next Step</string>
 </resources>

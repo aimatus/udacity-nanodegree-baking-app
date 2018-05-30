@@ -44,7 +44,7 @@ public class RecipeStepDetailFragment extends Fragment {
     static int stepIndex;
     static Recipe recipe;
     static boolean isLargeScreen = false;
-    SimpleExoPlayer mExoPlayer;
+    private SimpleExoPlayer mExoPlayer;
     private long exoPlayerPosition;
     private boolean exoPlayerPlayWhenReady;
 

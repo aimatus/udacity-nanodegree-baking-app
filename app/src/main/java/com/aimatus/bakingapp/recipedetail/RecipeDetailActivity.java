@@ -11,7 +11,7 @@ import com.aimatus.bakingapp.widget.IngredientsWidgetProvider;
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepClickListener {
 
     public Recipe mRecipe;
-    public int mStepIndex;
+    int mStepIndex;
     boolean mIsLargeScreen;
 
     @Override
