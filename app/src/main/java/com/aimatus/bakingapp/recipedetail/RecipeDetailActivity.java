@@ -21,8 +21,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
         mIsLargeScreen = getResources().getInteger(R.integer.grid_columns) > smallScreenDeviceColumns;
         Intent intent = getIntent();
         if (intent.hasExtra(getString(R.string.recipe_tag))) {
-            mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
-            setTitle(mRecipe.getName());
+            setTitleToRecipeName(intent);
             sendRecipeToWidget();
         }
         setContentView(R.layout.activity_recipe_detail);
@@ -31,6 +30,11 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
                 addRecipeStepDetailFragmentToActivity();
             }
         }
+    }
+
+    private void setTitleToRecipeName(Intent intent) {
+        mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
+        setTitle(mRecipe.getName());
     }
 
     private void addRecipeStepDetailFragmentToActivity() {
@@ -43,10 +47,10 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     }
 
     private void sendRecipeToWidget() {
-        Intent i = new Intent(this, IngredientsWidgetProvider.class);
-        i.putExtra(getString(R.string.recipe_tag), mRecipe);
-        i.setAction(getString(R.string.widget_intent_action));
-        sendBroadcast(i);
+        Intent intent = new Intent(this, IngredientsWidgetProvider.class);
+        intent.putExtra(getString(R.string.recipe_tag), mRecipe);
+        intent.setAction(getString(R.string.widget_intent_action));
+        sendBroadcast(intent);
     }
 
     @Override

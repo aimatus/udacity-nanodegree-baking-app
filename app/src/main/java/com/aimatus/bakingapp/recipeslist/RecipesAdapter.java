@@ -53,6 +53,10 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
         return recipes.size();
     }
 
+    interface RecipesOnClickHandler {
+        void onClick(Recipe recipe);
+    }
+
     public static class RecipesViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         final CardView recipeCardView;

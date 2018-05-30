@@ -31,7 +31,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RecipesActivity extends AppCompatActivity implements RecipesOnClickHandler {
+public class RecipesActivity extends AppCompatActivity implements RecipesAdapter.RecipesOnClickHandler {
 
     @BindView(R.id.rv_recipes) RecyclerView mRecyclerView;
     @BindView(R.id.tv_error_message_display) TextView mErrorMessageTextView;
