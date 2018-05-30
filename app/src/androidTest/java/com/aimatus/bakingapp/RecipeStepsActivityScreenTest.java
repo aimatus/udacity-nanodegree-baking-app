@@ -25,21 +25,10 @@ import static android.support.test.espresso.matcher.ViewMatchers.hasDescendant;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * These test are for small screens only. May not workin tablet version.
- *
- * @author Abraham Matus
- */
 @RunWith(AndroidJUnit4.class)
 public class RecipeStepsActivityScreenTest {
 
     private final String RECIPE_INTRODUCTION = "Recipe introduction";
-    private final String RECIPE_TAG = "recipe";
-    private final String INGREDIENTS = "Ingredients";
 
     /**
      * Based on https://stackoverflow.com/questions/28476507/using-espresso-to-click-view-inside-recyclerview-item
@@ -64,6 +53,7 @@ public class RecipeStepsActivityScreenTest {
 
                     recipe.setSteps(steps);
 
+                    String RECIPE_TAG = "mRecipe";
                     result.putExtra(RECIPE_TAG, recipe);
                     return result;
                 }
@@ -84,6 +74,7 @@ public class RecipeStepsActivityScreenTest {
 
     @Test
     public void testHasIngredientsItem() {
+        String INGREDIENTS = "Ingredients";
         onView(withId(R.id.tv_ingredients)).check(matches(withText(INGREDIENTS)));
     }
 

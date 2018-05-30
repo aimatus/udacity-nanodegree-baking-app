@@ -33,14 +33,10 @@ import retrofit2.Response;
 
 public class RecipesActivity extends AppCompatActivity implements RecipesOnClickHandler {
 
-    @BindView(R.id.rv_recipes)
-    RecyclerView mRecyclerView;
-    @BindView(R.id.tv_error_message_display)
-    TextView mErrorMessageTextView;
-    @BindView(R.id.pb_loading_indicator)
-    ProgressBar mProgressBar;
-    @BindView(R.id.swipe_refresh_layout)
-    SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.rv_recipes) RecyclerView mRecyclerView;
+    @BindView(R.id.tv_error_message_display) TextView mErrorMessageTextView;
+    @BindView(R.id.pb_loading_indicator) ProgressBar mProgressBar;
+    @BindView(R.id.swipe_refresh_layout) SwipeRefreshLayout swipeContainer;
 
     RecipesAdapter mRecipesAdapter;
     private List<Recipe> recipes;
@@ -61,26 +57,24 @@ public class RecipesActivity extends AppCompatActivity implements RecipesOnClick
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recipes);
-
         ButterKnife.bind(this);
         initSwipeContainerRefreshListener();
+        initRecyclerView();
+        getIdlingResource();
+        if (savedInstanceState == null || !savedInstanceState.containsKey(getString(R.string.recipes_tag))) {
+            mProgressBar.setVisibility(View.VISIBLE);
+            getRecipes();
+        } else {
+            recipes = (List<Recipe>) savedInstanceState.getSerializable(getString(R.string.recipes_tag));
+        }
+    }
 
-        mRecipesAdapter = new RecipesAdapter(this, getApplicationContext());
-
+    private void initRecyclerView() {
+        mRecipesAdapter = new RecipesAdapter(this);
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, getResources().getInteger(R.integer.grid_columns));
         mRecyclerView.setLayoutManager(gridLayoutManager);
         mRecyclerView.setAdapter(mRecipesAdapter);
         mRecyclerView.setHasFixedSize(true);
-
-        getIdlingResource();
-
-        if (savedInstanceState != null && savedInstanceState.containsKey(getString(R.string.recipes_tag))) {
-            recipes = (List<Recipe>) savedInstanceState.getSerializable(getString(R.string.recipes_tag));
-        } else {
-            mProgressBar.setVisibility(View.VISIBLE);
-            getRecipes();
-        }
-
     }
 
     private void initSwipeContainerRefreshListener() {
@@ -93,17 +87,15 @@ public class RecipesActivity extends AppCompatActivity implements RecipesOnClick
     }
 
     private void getRecipes() {
-
         mIdlingResource.setIdleState(false);
-
         mErrorMessageTextView.setVisibility(View.INVISIBLE);
         ApiService apiService = RetroClient.getApiService();
         Call<List<Recipe>> call = apiService.getRecipes();
         call.enqueue(new Callback<List<Recipe>>() {
             @Override
-            public void onResponse(Call<List<Recipe>> call, Response<List<Recipe>> response) {
+            public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
                 recipes = response.body();
-                mRecipesAdapter.recipes = recipes;
+                RecipesAdapter.recipes = recipes;
                 mRecipesAdapter.notifyDataSetChanged();
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mErrorMessageTextView.setVisibility(View.INVISIBLE);
@@ -112,8 +104,8 @@ public class RecipesActivity extends AppCompatActivity implements RecipesOnClick
             }
 
             @Override
-            public void onFailure(Call<List<Recipe>> call, Throwable t) {
-                Log.e(this.getClass().getSimpleName().toString(), t.toString());
+            public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
+                Log.e(this.getClass().getSimpleName(), t.toString());
                 mProgressBar.setVisibility(View.INVISIBLE);
                 mErrorMessageTextView.setVisibility(View.VISIBLE);
                 swipeContainer.setRefreshing(false);

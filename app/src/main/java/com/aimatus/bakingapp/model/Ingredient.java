@@ -2,13 +2,6 @@ package com.aimatus.bakingapp.model;
 
 import java.io.Serializable;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class Ingredient implements Serializable {
 
     private double quantity;

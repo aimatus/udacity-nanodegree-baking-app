@@ -1,12 +1,3 @@
-<!--
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
--->
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               android:layout_width="match_parent"
               android:layout_height="match_parent"

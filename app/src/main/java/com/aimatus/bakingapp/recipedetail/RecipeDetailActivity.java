@@ -8,73 +8,69 @@ import com.aimatus.bakingapp.R;
 import com.aimatus.bakingapp.model.Recipe;
 import com.aimatus.bakingapp.widget.IngredientsWidgetProvider;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class RecipeDetailActivity extends AppCompatActivity implements RecipeStepsFragment.OnStepClickListener {
 
-    public Recipe recipe;
-    public int stepIndex;
-    boolean isLargeScreen;
+    public Recipe mRecipe;
+    public int mStepIndex;
+    boolean mIsLargeScreen;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        if (getResources().getInteger(R.integer.grid_columns) > 1) {
-            isLargeScreen = true;
-        } else {
-            isLargeScreen = false;
-        }
-
+        mIsLargeScreen = getResources().getInteger(R.integer.grid_columns) > 1;
         Intent intent = getIntent();
         if (intent.hasExtra(getString(R.string.recipe_tag))) {
-            recipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
-            setTitle(recipe.getName());
-
-            Intent i = new Intent(this, IngredientsWidgetProvider.class);
-            i.putExtra(getString(R.string.recipe_tag), recipe);
-            i.setAction(getString(R.string.widget_intent_action));
-            sendBroadcast(i);
+            mRecipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
+            setTitle(mRecipe.getName());
+            sendRecipeToWidget();
         }
-
         setContentView(R.layout.activity_recipe_detail);
-
         if (savedInstanceState == null) {
-            if (isLargeScreen) {
-                RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-                recipeStepDetailFragment.stepIndex = 0;
-                recipeStepDetailFragment.recipe = recipe;
-                recipeStepDetailFragment.isLargeScreen = true;
-                getSupportFragmentManager().beginTransaction()
-                        .add(R.id.step_detail_fragment, recipeStepDetailFragment)
-                        .commit();
+            if (mIsLargeScreen) {
+                addRecipeStepDetailFragmentToActivity();
             }
         }
+    }
 
+    private void addRecipeStepDetailFragmentToActivity() {
+        RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+        RecipeStepDetailFragment.stepIndex = 0;
+        RecipeStepDetailFragment.recipe = mRecipe;
+        RecipeStepDetailFragment.isLargeScreen = true;
+        getSupportFragmentManager().beginTransaction()
+                .add(R.id.step_detail_fragment, recipeStepDetailFragment).commit();
+    }
+
+    private void sendRecipeToWidget() {
+        Intent i = new Intent(this, IngredientsWidgetProvider.class);
+        i.putExtra(getString(R.string.recipe_tag), mRecipe);
+        i.setAction(getString(R.string.widget_intent_action));
+        sendBroadcast(i);
     }
 
     @Override
     public void onStepSelected(int stepIndex) {
-        if (isLargeScreen) {
-            RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
-            recipeStepDetailFragment.stepIndex = stepIndex;
-            recipeStepDetailFragment.recipe = recipe;
-            getSupportFragmentManager().beginTransaction()
-                    .replace(R.id.step_detail_fragment, recipeStepDetailFragment)
-                    .commit();
+        if (mIsLargeScreen) {
+            updateRecipeStepDetailFragment(stepIndex);
         } else {
-            this.stepIndex = stepIndex;
-            Intent intent = new Intent(this, RecipeStepDetailActivity.class);
-            intent.putExtra(getString(R.string.step_index_tag), stepIndex);
-            intent.putExtra(getString(R.string.recipe_tag), recipe);
-            startActivity(intent);
+            startRecipeStepDetailActivity(stepIndex);
         }
+    }
 
+    private void startRecipeStepDetailActivity(int stepIndex) {
+        this.mStepIndex = stepIndex;
+        Intent intent = new Intent(this, RecipeStepDetailActivity.class);
+        intent.putExtra(getString(R.string.step_index_tag), stepIndex);
+        intent.putExtra(getString(R.string.recipe_tag), mRecipe);
+        startActivity(intent);
+    }
+
+    private void updateRecipeStepDetailFragment(int stepIndex) {
+        RecipeStepDetailFragment recipeStepDetailFragment = new RecipeStepDetailFragment();
+        RecipeStepDetailFragment.stepIndex = stepIndex;
+        RecipeStepDetailFragment.recipe = mRecipe;
+        getSupportFragmentManager().beginTransaction()
+                .replace(R.id.step_detail_fragment, recipeStepDetailFragment).commit();
     }
 
 }

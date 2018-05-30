@@ -1,13 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
--->
 <GridLayout xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
             xmlns:tools="http://schemas.android.com/tools"

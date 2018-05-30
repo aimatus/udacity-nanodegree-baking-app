@@ -3,13 +3,6 @@ package com.aimatus.bakingapp.model;
 import java.io.Serializable;
 import java.util.List;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class Recipe implements Serializable {
 
     private int id;

@@ -8,14 +8,8 @@ import android.view.WindowManager;
 
 import com.aimatus.bakingapp.R;
 import com.aimatus.bakingapp.model.Recipe;
+import com.aimatus.bakingapp.model.Step;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class RecipeStepDetailActivity extends AppCompatActivity {
 
     int stepIndex;
@@ -24,7 +18,15 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        updateActionBarVisibility();
+        Intent intent = getIntent();
+        if (intent.hasExtra(getString(R.string.step_index_tag))) {
+            getRecipe(intent);
+        }
+        setContentView(R.layout.activity_recipe_step_detail);
+    }
 
+    private void updateActionBarVisibility() {
         // https://stackoverflow.com/questions/11856886/hiding-title-bar-notification-bar-when-device-is-oriented-to-landscape
         if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
             getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
@@ -32,14 +34,12 @@ public class RecipeStepDetailActivity extends AppCompatActivity {
         } else {
             getWindow().clearFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
         }
+    }
 
-        Intent intent = getIntent();
-        if (intent.hasExtra(getString(R.string.step_index_tag))) {
-            stepIndex = (int) intent.getSerializableExtra(getString(R.string.step_index_tag));
-            recipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
-            setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
-        }
-
-        setContentView(R.layout.activity_recipe_step_detail);
+    private void getRecipe(Intent intent) {
+        stepIndex = (int) intent.getSerializableExtra(getString(R.string.step_index_tag));
+        recipe = (Recipe) intent.getSerializableExtra(getString(R.string.recipe_tag));
+        Step step = recipe.getSteps().get(stepIndex);
+        setTitle(step.getShortDescription());
     }
 }

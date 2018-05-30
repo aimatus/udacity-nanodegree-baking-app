@@ -5,13 +5,6 @@ import android.support.test.espresso.IdlingResource;
 
 import java.util.concurrent.atomic.AtomicBoolean;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class SimpleIdlingResource implements IdlingResource {
 
     @Nullable
@@ -37,8 +30,9 @@ public class SimpleIdlingResource implements IdlingResource {
 
     public void setIdleState(boolean isIdleNow) {
         mIsIdleNow.set(isIdleNow);
-        if (isIdleNow && mCallback != null) {
-            mCallback.onTransitionToIdle();
+        ResourceCallback callback = this.mCallback;
+        if (isIdleNow && callback != null) {
+            callback.onTransitionToIdle();
         }
     }
 

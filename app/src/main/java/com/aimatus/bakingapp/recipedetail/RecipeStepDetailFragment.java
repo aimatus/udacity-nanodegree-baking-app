@@ -3,6 +3,7 @@ package com.aimatus.bakingapp.recipedetail;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.DisplayMetrics;
@@ -31,69 +32,49 @@ import com.squareup.picasso.Picasso;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class RecipeStepDetailFragment extends Fragment {
+
+    @BindView(R.id.tv_step_description) TextView descriptionTextView;
+    @BindView(R.id.tv_no_video_available) TextView noVideoTextView;
+    @BindView(R.id.b_previous_button) Button previousStepButton;
+    @BindView(R.id.b_next_button) Button nextStepButton;
+    @BindView(R.id.exo_player_view) SimpleExoPlayerView mPlayerView;
+    @BindView(R.id.iv_thumbnail_image) ImageView mThumbnailImageView;
 
     static int stepIndex;
     static Recipe recipe;
     static boolean isLargeScreen = false;
-
-    @BindView(R.id.tv_step_description)
-    TextView descriptionTextView;
-
-    @BindView(R.id.tv_no_video_available)
-    TextView noVideoTextView;
-
-    @BindView(R.id.b_previous_button)
-    Button previousStepButton;
-
-    @BindView(R.id.b_next_button)
-    Button nextStepButton;
-
-    @BindView(R.id.exo_player_view)
-    SimpleExoPlayerView mPlayerView;
-
-    @BindView(R.id.iv_thumbnail_image)
-
-    ImageView mThumbnailImageView;
     SimpleExoPlayer mExoPlayer;
     private long exoPlayerPosition;
     private boolean exoPlayerPlayWhenReady;
-
 
     public RecipeStepDetailFragment() {
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         final View rootView = inflater.inflate(R.layout.fragment_recipe_step_detail, container, false);
         ButterKnife.bind(this, rootView);
-
         if (savedInstanceState != null) {
-            stepIndex = savedInstanceState.getInt(getString(R.string.step_index_tag));
-            recipe = (Recipe) savedInstanceState.getSerializable(getString(R.string.recipe_tag));
-            exoPlayerPosition = savedInstanceState.getLong(getString(R.string.exo_player_position_tag));
-            exoPlayerPlayWhenReady = savedInstanceState.getBoolean(getString(R.string.exo_player_play_when_ready_tag));
+            restoreSavedInstance(savedInstanceState);
         } else {
             getParamsFromActivity();
             exoPlayerPlayWhenReady = true;
         }
-
         descriptionTextView.setText(recipe.getSteps().get(stepIndex).getDescription());
         initializeMultimedia();
         initializeNavButtons();
-        setButtonsClickListener();
+        initButtonsClickListener();
         setFullscreenVideoConfigurationIfLandscapeAndSmallScreen();
-
         return rootView;
+    }
+
+    private void restoreSavedInstance(@NonNull Bundle savedInstanceState) {
+        stepIndex = savedInstanceState.getInt(getString(R.string.step_index_tag));
+        recipe = (Recipe) savedInstanceState.getSerializable(getString(R.string.recipe_tag));
+        exoPlayerPosition = savedInstanceState.getLong(getString(R.string.exo_player_position_tag));
+        exoPlayerPlayWhenReady = savedInstanceState.getBoolean(getString(R.string.exo_player_play_when_ready_tag));
     }
 
     private void getParamsFromActivity() {
@@ -105,54 +86,58 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     private void initializeMultimedia() {
-
-        if (mExoPlayer != null) {
-            mExoPlayer.stop();
-        }
-
+        if (mExoPlayer != null) mExoPlayer.stop();
         String videoURL = recipe.getSteps().get(stepIndex).getVideoURL();
-
-        if (videoURL != null && !videoURL.isEmpty()) {
-            initializeExoPlayer(videoURL);
-        } else {
+        if (videoURL == null || videoURL.isEmpty()) {
             initializeThumbnailImage();
+        } else {
+            initializeExoPlayer(videoURL);
         }
     }
 
     private void initializeExoPlayer(String videoURL) {
-        noVideoTextView.setVisibility(View.GONE);
-        mThumbnailImageView.setVisibility(View.GONE);
-        mPlayerView.setVisibility(View.VISIBLE);
-        mExoPlayer = ExoPlayerFactory.newSimpleInstance(
-                getContext(), new DefaultTrackSelector(), new DefaultLoadControl());
+        displayPlayer();
+        mExoPlayer = ExoPlayerFactory.newSimpleInstance(getContext(), new DefaultTrackSelector(), new DefaultLoadControl());
         mPlayerView.setPlayer(mExoPlayer);
-
-        String userAgent = Util.getUserAgent(getContext(), getString(R.string.app_name));
-        MediaSource mediaSource = new ExtractorMediaSource(
-                Uri.parse(videoURL),
-                new DefaultDataSourceFactory(getContext(), userAgent),
-                new DefaultExtractorsFactory(), null, null);
-
-        mExoPlayer.prepare(mediaSource);
+        mExoPlayer.prepare(getMediaSource(videoURL));
         mExoPlayer.seekTo(exoPlayerPosition);
         mExoPlayer.setPlayWhenReady(exoPlayerPlayWhenReady);
     }
 
+    @NonNull
+    private MediaSource getMediaSource(String videoURL) {
+        String userAgent = Util.getUserAgent(getContext(), getString(R.string.app_name));
+        DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(getContext(), userAgent);
+        Uri uri = Uri.parse(videoURL);
+        return new ExtractorMediaSource(uri, dataSourceFactory, new DefaultExtractorsFactory(), null, null);
+    }
+
+    private void displayPlayer() {
+        noVideoTextView.setVisibility(View.GONE);
+        mThumbnailImageView.setVisibility(View.GONE);
+        mPlayerView.setVisibility(View.VISIBLE);
+    }
+
     private void initializeThumbnailImage() {
         String recipeThumbnailUrl = recipe.getSteps().get(stepIndex).getThumbnailURL();
-        if (recipeThumbnailUrl != null && !recipeThumbnailUrl.isEmpty()) {
-            Picasso.get()
-                    .load(recipeThumbnailUrl)
-                    .placeholder(R.drawable.invalid_thumbnail)
-                    .error(R.drawable.invalid_thumbnail)
-                    .into(mThumbnailImageView);
-            mThumbnailImageView.setVisibility(View.VISIBLE);
-            mPlayerView.setVisibility(View.GONE);
+        if (recipeThumbnailUrl == null || recipeThumbnailUrl.isEmpty()) {
+            hidePlayer();
         } else {
-            mThumbnailImageView.setVisibility(View.GONE);
-            noVideoTextView.setVisibility(View.VISIBLE);
-            mPlayerView.setVisibility(View.GONE);
+            displayThumbnail(recipeThumbnailUrl);
         }
+    }
+
+    private void displayThumbnail(String recipeThumbnailUrl) {
+        Picasso.get().load(recipeThumbnailUrl).placeholder(R.drawable.invalid_thumbnail)
+                .error(R.drawable.invalid_thumbnail).into(mThumbnailImageView);
+        mThumbnailImageView.setVisibility(View.VISIBLE);
+        mPlayerView.setVisibility(View.GONE);
+    }
+
+    private void hidePlayer() {
+        mThumbnailImageView.setVisibility(View.GONE);
+        noVideoTextView.setVisibility(View.VISIBLE);
+        mPlayerView.setVisibility(View.GONE);
     }
 
     private void initializeNavButtons() {
@@ -163,23 +148,29 @@ public class RecipeStepDetailFragment extends Fragment {
         }
     }
 
-    private void setButtonsClickListener() {
+    private void initButtonsClickListener() {
         setNextStepButtonClickListener();
         setPreviousStepButtonClickListener();
     }
 
     private void setFullscreenVideoConfigurationIfLandscapeAndSmallScreen() {
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE
-                && !isLargeScreen) {
-            DisplayMetrics displayMetrics = new DisplayMetrics();
-            getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-            int height = displayMetrics.heightPixels;
-            mPlayerView.setLayoutParams(
-                    new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT, height));
-            nextStepButton.setVisibility(View.GONE);
-            previousStepButton.setVisibility(View.GONE);
+        boolean isLandscapeMode = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
+        if (isLandscapeMode && !isLargeScreen) {
+            setPlayerFullHeight();
+            hideNavigationButtons();
         }
+    }
+
+    private void setPlayerFullHeight() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        mPlayerView.setLayoutParams(new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, height));
+    }
+
+    private void hideNavigationButtons() {
+        nextStepButton.setVisibility(View.GONE);
+        previousStepButton.setVisibility(View.GONE);
     }
 
     private void setPreviousStepButtonClickListener() {
@@ -189,17 +180,21 @@ public class RecipeStepDetailFragment extends Fragment {
                 stepIndex--;
                 descriptionTextView.setText(recipe.getSteps().get(stepIndex).getDescription());
                 initializeMultimedia();
-                if (stepIndex == 0) {
-                    nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(false);
-                } else {
-                    nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(true);
-                }
+                updatePreviousButtonState();
                 if (!isLargeScreen) {
                     getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
                 }
 
+            }
+
+            private void updatePreviousButtonState() {
+                if (stepIndex == 0) {
+                    nextStepButton.setEnabled(true);
+                    previousStepButton.setEnabled(true);
+                } else {
+                    nextStepButton.setEnabled(true);
+                    previousStepButton.setEnabled(false);
+                }
             }
         });
     }
@@ -211,6 +206,13 @@ public class RecipeStepDetailFragment extends Fragment {
                 stepIndex++;
                 descriptionTextView.setText(recipe.getSteps().get(stepIndex).getDescription());
                 initializeMultimedia();
+                updateNextButtonState();
+                if (!isLargeScreen) {
+                    getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
+                }
+            }
+
+            private void updateNextButtonState() {
                 if (stepIndex == recipe.getSteps().size() - 1) {
                     nextStepButton.setEnabled(false);
                     previousStepButton.setEnabled(true);
@@ -218,34 +220,37 @@ public class RecipeStepDetailFragment extends Fragment {
                     nextStepButton.setEnabled(true);
                     previousStepButton.setEnabled(true);
                 }
-                if (!isLargeScreen) {
-                    getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
-                }
             }
         });
     }
 
     @Override
-    public void onSaveInstanceState(Bundle outState) {
+    public void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putInt(getString(R.string.step_index_tag), stepIndex);
         outState.putSerializable(getString(R.string.recipe_tag), recipe);
-
         if (mExoPlayer != null) {
-            outState.putLong(getString(R.string.exo_player_position_tag), mExoPlayer.getCurrentPosition());
-            outState.putBoolean(getString(R.string.exo_player_play_when_ready_tag), mExoPlayer.getPlayWhenReady());
+            saveExoPlayerState(outState);
         }
+    }
 
+    private void saveExoPlayerState(@NonNull Bundle outState) {
+        outState.putLong(getString(R.string.exo_player_position_tag), mExoPlayer.getCurrentPosition());
+        outState.putBoolean(getString(R.string.exo_player_play_when_ready_tag), mExoPlayer.getPlayWhenReady());
     }
 
     @Override
     public void onPause() {
         super.onPause();
         if (mExoPlayer != null) {
-            exoPlayerPlayWhenReady = mExoPlayer.getPlayWhenReady();
-            exoPlayerPosition = mExoPlayer.getCurrentPosition();
-            mExoPlayer.release();
+            pauseExoPlayerState();
         }
+    }
+
+    private void pauseExoPlayerState() {
+        exoPlayerPlayWhenReady = mExoPlayer.getPlayWhenReady();
+        exoPlayerPosition = mExoPlayer.getCurrentPosition();
+        mExoPlayer.release();
     }
 
     @Override

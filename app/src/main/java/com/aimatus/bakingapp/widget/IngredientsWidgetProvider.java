@@ -14,16 +14,9 @@ import com.aimatus.bakingapp.model.Recipe;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class IngredientsWidgetProvider extends AppWidgetProvider {
 
-    static final String RECIPE = "recipe";
+    static final String RECIPE = "mRecipe";
     static List<Ingredient> ingredients = new ArrayList<>();
     static String text;
 
@@ -59,12 +52,6 @@ public class IngredientsWidgetProvider extends AppWidgetProvider {
         // Enter relevant functionality for when the last widget is disabled
     }
 
-    /**
-     * Based on https://stackoverflow.com/questions/28750082/how-can-i-update-a-widget-only-when-i-press-a-button-in-an-activity-from-within
-     *
-     * @param context
-     * @param intent
-     */
     @Override
     public void onReceive(Context context, Intent intent) {
 

@@ -22,21 +22,8 @@ import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * These test are for small screens only. May not workin tablet version.
- *
- * @author Abraham Matus
- */
 @RunWith(AndroidJUnit4.class)
 public class RecipesActivityScreenTest {
-
-    private final int RECYCLER_VIEW_FIRST_ITEM = 0;
-    private final String NUTELLA_PIE = "Nutella Pie";
-    private final String NUTELLA_PIE_STEP = "2. Prep the cookie crust.";
 
     private IdlingResource mIdlingResource;
 
@@ -52,10 +39,11 @@ public class RecipesActivityScreenTest {
 
     @Test
     public void testTest() {
-        onView(withId(R.id.rv_recipes))
-                .check(matches(hasDescendant(withText(NUTELLA_PIE))));
-        onView(withId(R.id.rv_recipes))
-                .perform(RecyclerViewActions.actionOnItemAtPosition(RECYCLER_VIEW_FIRST_ITEM, click()));
+        int RECYCLER_VIEW_FIRST_ITEM = 0;
+        String NUTELLA_PIE = "Nutella Pie";
+        String NUTELLA_PIE_STEP = "2. Prep the cookie crust.";
+        onView(withId(R.id.rv_recipes)).check(matches(hasDescendant(withText(NUTELLA_PIE))));
+        onView(withId(R.id.rv_recipes)).perform(RecyclerViewActions.actionOnItemAtPosition(RECYCLER_VIEW_FIRST_ITEM, click()));
         onView(withText(NUTELLA_PIE_STEP)).check(matches(isDisplayed()));
     }
 

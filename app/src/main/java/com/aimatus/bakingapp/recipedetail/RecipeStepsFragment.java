@@ -2,6 +2,7 @@ package com.aimatus.bakingapp.recipedetail;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,17 +18,9 @@ import com.aimatus.bakingapp.R;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Baking App Project
- * Udacity Associate Android Developer Fast Track Nanodegree Program
- * October 2017
- *
- * @author Abraham Matus
- */
 public class RecipeStepsFragment extends Fragment {
 
-    @BindView(R.id.tv_ingredients)
-    TextView ingredientsTextView;
+    @BindView(R.id.tv_ingredients) TextView ingredientsTextView;
 
     OnStepClickListener mCallback;
 
@@ -40,33 +33,37 @@ public class RecipeStepsFragment extends Fragment {
         try {
             mCallback = (OnStepClickListener) context;
         } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString()
-                    + " must implement OnImageClickListener");
+            throw new ClassCastException(context.toString() + " must implement OnImageClickListener");
         }
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+    public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         RecipeDetailActivity activity = (RecipeDetailActivity) getActivity();
         final View rootView = inflater.inflate(R.layout.fragment_recipe_steps, container, false);
-        RecyclerView recyclerView = (RecyclerView) rootView.findViewById(R.id.rv_recipe_steps);
-        RecipeStepsAdapter recipeStepsAdapter = new RecipeStepsAdapter(activity.recipe, activity);
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext());
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setAdapter(recipeStepsAdapter);
-        recyclerView.setHasFixedSize(false);
-
+        initRecyclerView(activity, rootView);
         ButterKnife.bind(this, rootView);
+        initIngredientsTextViewOnClickListener();
+        return rootView;
+    }
 
+    private void initIngredientsTextViewOnClickListener() {
         ingredientsTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Toast.makeText(getContext(), getString(R.string.ingredients_toast_message), Toast.LENGTH_LONG).show();
             }
         });
+    }
 
-        return rootView;
+    private void initRecyclerView(RecipeDetailActivity activity, View rootView) {
+        RecyclerView recyclerView = rootView.findViewById(R.id.rv_recipe_steps);
+        RecipeStepsAdapter recipeStepsAdapter = new RecipeStepsAdapter(activity.mRecipe, activity);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext());
+        recyclerView.setLayoutManager(linearLayoutManager);
+        recyclerView.setAdapter(recipeStepsAdapter);
+        recyclerView.setHasFixedSize(false);
     }
 
     public interface OnStepClickListener {
