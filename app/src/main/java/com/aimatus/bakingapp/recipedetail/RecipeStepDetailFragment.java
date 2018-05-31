@@ -184,16 +184,15 @@ public class RecipeStepDetailFragment extends Fragment {
                 if (!isLargeScreen) {
                     getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
                 }
-
             }
 
             private void updatePreviousButtonState() {
                 if (stepIndex == 0) {
                     nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(true);
+                    previousStepButton.setEnabled(false);
                 } else {
                     nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(false);
+                    previousStepButton.setEnabled(true);
                 }
             }
         });
