@@ -18,4 +18,5 @@
     <string name="recipe_image">Recipe Image</string>
     <string name="previous_step">Previous Step</string>
     <string name="next_step">Next Step</string>
+    <string name="ingredients_list">Ingredients list</string>
 </resources>

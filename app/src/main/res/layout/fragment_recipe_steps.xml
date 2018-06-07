@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -10,18 +11,44 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tv_ingredients"
+        <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="41dp"
-            android:layout_marginStart="41dp"
-            android:fontFamily="sans-serif-condensed"
-            android:padding="16dp"
-            android:text="@string/ingredients"
-            android:textAllCaps="true"
-            android:textSize="22sp"
-            tools:text="Ingredients" />
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iv_ingredients_icon"
+                android:layout_width="50dp"
+                android:layout_height="0dp"
+                android:contentDescription="@string/ingredients_list"
+                android:padding="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                app:srcCompat="@drawable/ic_format_list_bulleted_black_24dp" />
+
+            <TextView
+                android:id="@+id/tv_ingredients"
+                android:layout_width="328dp"
+                android:layout_height="wrap_content"
+                android:fontFamily="sans-serif-condensed"
+                android:paddingBottom="20dp"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="20dp"
+                android:text="@string/ingredients"
+                android:textAllCaps="true"
+                android:textSize="22sp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
+                app:layout_constraintStart_toEndOf="@+id/iv_ingredients_icon"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.0"
+                tools:text="Ingredients" />
+        </android.support.constraint.ConstraintLayout>
 
         <View
             android:layout_width="match_parent"
