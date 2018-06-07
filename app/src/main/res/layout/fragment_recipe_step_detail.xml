@@ -2,6 +2,7 @@
 <android.support.constraint.ConstraintLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -50,8 +51,11 @@
                 android:id="@+id/tv_step_description"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="16dp"
-                android:textSize="@dimen/description_text_size"/>
+                android:lineSpacingExtra="3sp"
+                android:padding="24dp"
+                android:textAllCaps="false"
+                android:textSize="@dimen/description_text_size"
+                tools:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam interdum justo at diam varius, a commodo dolor consequat. Maecenas feugiat at lorem accumsan finibus. In efficitur quam ut sodales pretium." />
 
         </LinearLayout>
 
