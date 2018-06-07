@@ -36,8 +36,8 @@ public class RecipeStepDetailFragment extends Fragment {
 
     @BindView(R.id.tv_step_description) TextView descriptionTextView;
     @BindView(R.id.tv_no_video_available) TextView noVideoTextView;
-    @BindView(R.id.b_previous_button) Button previousStepButton;
-    @BindView(R.id.b_next_button) Button nextStepButton;
+    @BindView(R.id.tv_previous_step) TextView previousStepTextView;
+    @BindView(R.id.tv_next_step) TextView nextStepTextView;
     @BindView(R.id.exo_player_view) SimpleExoPlayerView mPlayerView;
     @BindView(R.id.iv_thumbnail_image) ImageView mThumbnailImageView;
 
@@ -142,9 +142,9 @@ public class RecipeStepDetailFragment extends Fragment {
 
     private void initializeNavButtons() {
         if (stepIndex == 0) {
-            previousStepButton.setEnabled(false);
+            previousStepTextView.setEnabled(false);
         } else {
-            nextStepButton.setEnabled(true);
+            nextStepTextView.setEnabled(true);
         }
     }
 
@@ -169,12 +169,12 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     private void hideNavigationButtons() {
-        nextStepButton.setVisibility(View.GONE);
-        previousStepButton.setVisibility(View.GONE);
+        nextStepTextView.setVisibility(View.GONE);
+        previousStepTextView.setVisibility(View.GONE);
     }
 
     private void setPreviousStepButtonClickListener() {
-        previousStepButton.setOnClickListener(new View.OnClickListener() {
+        previousStepTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stepIndex--;
@@ -188,18 +188,18 @@ public class RecipeStepDetailFragment extends Fragment {
 
             private void updatePreviousButtonState() {
                 if (stepIndex == 0) {
-                    nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(false);
+                    nextStepTextView.setVisibility(View.VISIBLE);
+                    previousStepTextView.setVisibility(View.INVISIBLE);
                 } else {
-                    nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(true);
+                    nextStepTextView.setVisibility(View.VISIBLE);
+                    previousStepTextView.setVisibility(View.VISIBLE);
                 }
             }
         });
     }
 
     private void setNextStepButtonClickListener() {
-        nextStepButton.setOnClickListener(new View.OnClickListener() {
+        nextStepTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 stepIndex++;
@@ -213,11 +213,11 @@ public class RecipeStepDetailFragment extends Fragment {
 
             private void updateNextButtonState() {
                 if (stepIndex == recipe.getSteps().size() - 1) {
-                    nextStepButton.setEnabled(false);
-                    previousStepButton.setEnabled(true);
+                    nextStepTextView.setVisibility(View.INVISIBLE);
+                    previousStepTextView.setVisibility(View.VISIBLE);
                 } else {
-                    nextStepButton.setEnabled(true);
-                    previousStepButton.setEnabled(true);
+                    nextStepTextView.setVisibility(View.VISIBLE);
+                    previousStepTextView.setVisibility(View.VISIBLE);
                 }
             }
         });

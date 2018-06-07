@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.constraint.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -10,8 +9,7 @@
     <ScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="0dp"
-        app:layout_constraintBottom_toTopOf="@+id/b_previous_button"
+        app:layout_constraintBottom_toTopOf="@+id/tv_previous_step"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -26,15 +24,15 @@
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_gravity="center"
-                android:background="@android:color/black"/>
+                android:background="@android:color/black" />
 
             <ImageView
                 android:id="@+id/iv_thumbnail_image"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
+                android:contentDescription="@string/thumbnail_image"
                 android:scaleType="centerCrop"
-                android:visibility="gone"
-                android:contentDescription="@string/thumbnail_image" />
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_no_video_available"
@@ -45,7 +43,7 @@
                 android:text="@string/video_not_available"
                 android:textColor="@android:color/white"
                 android:textSize="24sp"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <TextView
                 android:id="@+id/tv_step_description"
@@ -61,26 +59,32 @@
 
     </ScrollView>
 
-    <Button
-        android:id="@+id/b_previous_button"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/tv_previous_step"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginStart="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="24dp"
         android:text="@string/previous_step"
+        android:textColor="?attr/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent" />
+        app:layout_constraintLeft_toLeftOf="parent"
+        tools:text="Previous" />
 
-    <Button
-        android:id="@+id/b_next_button"
+    <TextView
+        android:id="@+id/tv_next_step"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="8dp"
-        android:layout_marginLeft="8dp"
-        android:layout_marginRight="8dp"
+        android:layout_marginBottom="16dp"
+        android:layout_marginRight="24dp"
         android:text="@string/next_step"
+        android:textColor="?attr/colorAccent"
+        android:textSize="18sp"
+        android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintRight_toRightOf="parent"/>
+        app:layout_constraintRight_toRightOf="parent"
+        tools:text="Next" />
 
 </android.support.constraint.ConstraintLayout>
