@@ -38,7 +38,8 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
         String stepDescription = steps.get(position).getShortDescription();
-        String stepNumber = Integer.toString(position + 1);
+        String stepNumber = Integer.toString(position);
+        if (position == 0) stepNumber = "";
         holder.stepTitleTextView.setText(stepDescription);
         holder.stepNumberTextView.setText(stepNumber);
     }
