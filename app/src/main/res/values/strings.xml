@@ -16,7 +16,7 @@
     <string name="exo_player_play_when_ready_tag">exo_player_play_when_ready</string>
     <string name="thumbnail_image">Thumbnail Image</string>
     <string name="recipe_image">Recipe Image</string>
-    <string name="previous_step">Previous Step</string>
-    <string name="next_step">Next Step</string>
+    <string name="previous_step">Previous</string>
+    <string name="next_step">Next</string>
     <string name="ingredients_list">Ingredients list</string>
 </resources>
