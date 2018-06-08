@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="light_gray">#90d4d4d4</color>
+    <color name="stepNumberBackgroundColor">#90b7b7b7</color>
 </resources>
