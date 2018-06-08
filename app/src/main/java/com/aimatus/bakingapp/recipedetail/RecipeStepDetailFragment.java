@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.aimatus.bakingapp.R;
 import com.aimatus.bakingapp.model.Recipe;
+import com.aimatus.bakingapp.model.Step;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlayerFactory;
 import com.google.android.exoplayer2.SimpleExoPlayer;
@@ -141,9 +142,9 @@ public class RecipeStepDetailFragment extends Fragment {
 
     private void initializeNavButtons() {
         if (stepIndex == 0) {
-            previousStepTextView.setEnabled(false);
+            previousStepTextView.setVisibility(View.GONE);
         } else {
-            nextStepTextView.setEnabled(true);
+            nextStepTextView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -176,12 +177,13 @@ public class RecipeStepDetailFragment extends Fragment {
         previousStepTextView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                stepIndex--;
-                descriptionTextView.setText(recipe.getSteps().get(stepIndex).getDescription());
+                if (stepIndex > 0) stepIndex--;
+                Step step = recipe.getSteps().get(stepIndex);
+                descriptionTextView.setText(step.getDescription());
                 initializeMultimedia();
                 updatePreviousButtonState();
                 if (!isLargeScreen) {
-                    getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
+                    getActivity().setTitle(step.getShortDescription());
                 }
             }
 
@@ -202,11 +204,12 @@ public class RecipeStepDetailFragment extends Fragment {
             @Override
             public void onClick(View view) {
                 stepIndex++;
-                descriptionTextView.setText(recipe.getSteps().get(stepIndex).getDescription());
+                Step step = recipe.getSteps().get(stepIndex);
+                descriptionTextView.setText(step.getDescription());
                 initializeMultimedia();
                 updateNextButtonState();
                 if (!isLargeScreen) {
-                    getActivity().setTitle(recipe.getSteps().get(stepIndex).getShortDescription());
+                    getActivity().setTitle(step.getShortDescription());
                 }
             }
 
