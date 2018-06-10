@@ -4,7 +4,11 @@ This project is based on **Baking App** project from the 2017 [Udacity's
 Associate Android Developer Fast Track Nanodegree Program](https://ae.udacity.com/course/associate-android-developer-fast-track--nd818).
 
 <p align="center"><br>
-<img src="https://raw.githubusercontent.com/aimatus/udacity-nanodegree-baking-app/master/screenshots/device-2018-05-28-202131.png">
+<img src="https://raw.githubusercontent.com/aimatus/udacity-nanodegree-baking-app/master/screenshots/phone-recipe-screenshot.png"><br>
+</p>
+
+<p align="center"><br>
+<img src="https://raw.githubusercontent.com/aimatus/udacity-nanodegree-baking-app/master/screenshots/tablet-recipe-screenshot.png">
 </p>
 
 ## **LIBRARIES**
