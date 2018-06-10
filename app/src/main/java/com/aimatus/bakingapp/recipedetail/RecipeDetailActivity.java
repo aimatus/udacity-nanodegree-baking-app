@@ -17,6 +17,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        if (savedInstanceState != null) {
+            mStepIndex = savedInstanceState.getInt(getString(R.string.step_index_tag));
+        }
         int smallScreenDeviceColumns = 1;
         mIsLargeScreen = getResources().getInteger(R.integer.grid_columns) > smallScreenDeviceColumns;
         Intent intent = getIntent();
@@ -55,6 +58,7 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
 
     @Override
     public void onStepSelected(int stepIndex) {
+        this.mStepIndex = stepIndex;
         if (mIsLargeScreen) {
             updateRecipeStepDetailFragment(stepIndex);
         } else {
@@ -63,7 +67,6 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
     }
 
     private void startRecipeStepDetailActivity(int stepIndex) {
-        this.mStepIndex = stepIndex;
         Intent intent = new Intent(this, RecipeStepDetailActivity.class);
         intent.putExtra(getString(R.string.step_index_tag), stepIndex);
         intent.putExtra(getString(R.string.recipe_tag), mRecipe);
@@ -78,4 +81,9 @@ public class RecipeDetailActivity extends AppCompatActivity implements RecipeSte
                 .replace(R.id.step_detail_fragment, recipeStepDetailFragment).commit();
     }
 
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putInt(getString(R.string.step_index_tag), mStepIndex);
+    }
 }

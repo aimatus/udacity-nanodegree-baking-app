@@ -1,7 +1,6 @@
 package com.aimatus.bakingapp.recipedetail;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -19,12 +18,14 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
 
     private static List<Step> steps;
     private static RecipeStepsFragment.OnStepClickListener onStepClickListener;
+    private int stepIndex;
     private View lastSelectedItemView;
     private Context context;
 
-    RecipeStepsAdapter(Recipe recipe, RecipeStepsFragment.OnStepClickListener onStepClickListener) {
+    RecipeStepsAdapter(Recipe recipe, RecipeStepsFragment.OnStepClickListener onStepClickListener, int stepIndex) {
         steps = recipe.getSteps();
         RecipeStepsAdapter.onStepClickListener = onStepClickListener;
+        this.stepIndex = stepIndex;
     }
 
     @NonNull
@@ -42,15 +43,15 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
         String stepDescription = steps.get(position).getShortDescription();
         String stepNumber = position == 0 ? "" : Integer.toString(position);
-        if (position == 0) {
-            initFirstItemStyle(holder);
+        if (position == stepIndex) {
+            initDefaultSelectedItemStyle(holder);
         }
         holder.stepNumberTextView.setText(stepNumber);
         holder.stepTitleTextView.setText(stepDescription);
 
     }
 
-    private void initFirstItemStyle(@NonNull RecipeStepsViewHolder holder) {
+    private void initDefaultSelectedItemStyle(@NonNull RecipeStepsViewHolder holder) {
         lastSelectedItemView = holder.itemView;
         int accentColor = context.getResources().getColor(R.color.colorAccent);
         holder.stepNumberTextView.setBackgroundColor(accentColor);

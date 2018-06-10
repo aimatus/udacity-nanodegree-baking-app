@@ -52,7 +52,7 @@ public class RecipeStepsFragment extends Fragment {
 
     private void initRecyclerView(RecipeDetailActivity activity, View rootView) {
         RecyclerView recyclerView = rootView.findViewById(R.id.rv_recipe_steps);
-        RecipeStepsAdapter recipeStepsAdapter = new RecipeStepsAdapter(activity.mRecipe, activity);
+        RecipeStepsAdapter recipeStepsAdapter = new RecipeStepsAdapter(activity.mRecipe, activity, activity.mStepIndex);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(rootView.getContext());
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setAdapter(recipeStepsAdapter);
