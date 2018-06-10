@@ -20,6 +20,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     private static List<Step> steps;
     private static RecipeStepsFragment.OnStepClickListener onStepClickListener;
     private View lastSelectedItemView;
+    private Context context;
 
     RecipeStepsAdapter(Recipe recipe, RecipeStepsFragment.OnStepClickListener onStepClickListener) {
         steps = recipe.getSteps();
@@ -29,7 +30,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     @NonNull
     @Override
     public RecipeStepsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        Context context = parent.getContext();
+        context = parent.getContext();
         int layoutIdForMovieItem = R.layout.recipe_step_item;
         LayoutInflater layoutInflater = LayoutInflater.from(context);
         final boolean shouldAttachToParentImmediately = false;
@@ -40,10 +41,20 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     @Override
     public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
         String stepDescription = steps.get(position).getShortDescription();
-        String stepNumber = Integer.toString(position);
-        if (position == 0) stepNumber = "";
-        holder.stepTitleTextView.setText(stepDescription);
+        String stepNumber = position == 0 ? "" : Integer.toString(position);
+        if (position == 0) {
+            initFirstItemStyle(holder);
+        }
         holder.stepNumberTextView.setText(stepNumber);
+        holder.stepTitleTextView.setText(stepDescription);
+
+    }
+
+    private void initFirstItemStyle(@NonNull RecipeStepsViewHolder holder) {
+        lastSelectedItemView = holder.itemView;
+        int accentColor = context.getResources().getColor(R.color.colorAccent);
+        holder.stepNumberTextView.setBackgroundColor(accentColor);
+        holder.listDivider.setBackgroundColor(accentColor);
     }
 
     @Override
