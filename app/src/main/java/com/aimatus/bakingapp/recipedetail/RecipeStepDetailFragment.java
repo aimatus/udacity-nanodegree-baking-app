@@ -141,10 +141,15 @@ public class RecipeStepDetailFragment extends Fragment {
     }
 
     private void initializeNavButtons() {
-        if (stepIndex == 0) {
+        if (isLargeScreen) {
             previousStepTextView.setVisibility(View.GONE);
+            nextStepTextView.setVisibility(View.GONE);
         } else {
-            nextStepTextView.setVisibility(View.VISIBLE);
+            if (stepIndex == 0) {
+                previousStepTextView.setVisibility(View.GONE);
+            } else {
+                nextStepTextView.setVisibility(View.VISIBLE);
+            }
         }
     }
 
