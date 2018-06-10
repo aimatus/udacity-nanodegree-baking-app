@@ -85,7 +85,8 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
         public void onClick(View view) {
             int adapterPosition = getAdapterPosition();
             onStepClickListener.onStepSelected(adapterPosition);
-            if (isLargeScreen) {
+            boolean isNotAlreadySelected = !view.equals(lastSelectedItemView);
+            if (isLargeScreen && isNotAlreadySelected) {
                 applyLargeScreenStyles(view);
             }
         }
