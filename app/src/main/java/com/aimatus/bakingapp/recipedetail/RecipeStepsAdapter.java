@@ -43,7 +43,7 @@ public class RecipeStepsAdapter extends RecyclerView.Adapter<RecipeStepsAdapter.
     public void onBindViewHolder(@NonNull RecipeStepsViewHolder holder, int position) {
         String stepDescription = steps.get(position).getShortDescription();
         String stepNumber = position == 0 ? "" : Integer.toString(position);
-        if (position == stepIndex) {
+        if (position == stepIndex && holder.isLargeScreen) {
             initDefaultSelectedItemStyle(holder);
         }
         holder.stepNumberTextView.setText(stepNumber);
