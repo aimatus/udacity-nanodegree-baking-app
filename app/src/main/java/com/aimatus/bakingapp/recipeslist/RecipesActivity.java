@@ -96,22 +96,30 @@ public class RecipesActivity extends AppCompatActivity implements RecipesAdapter
             public void onResponse(@NonNull Call<List<Recipe>> call, @NonNull Response<List<Recipe>> response) {
                 recipes = response.body();
                 RecipesAdapter.recipes = recipes;
-                mRecipesAdapter.notifyDataSetChanged();
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mErrorMessageTextView.setVisibility(View.INVISIBLE);
-                swipeContainer.setRefreshing(false);
-                mIdlingResource.setIdleState(true);
+                updateRecipesViewsOnSuccess();
             }
 
             @Override
             public void onFailure(@NonNull Call<List<Recipe>> call, @NonNull Throwable t) {
                 Log.e(this.getClass().getSimpleName(), t.toString());
-                mProgressBar.setVisibility(View.INVISIBLE);
-                mErrorMessageTextView.setVisibility(View.VISIBLE);
-                swipeContainer.setRefreshing(false);
-                mIdlingResource.setIdleState(true);
+                updateRecipesViewsOnFailure();
             }
         });
+    }
+
+    private void updateRecipesViewsOnFailure() {
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mErrorMessageTextView.setVisibility(View.VISIBLE);
+        swipeContainer.setRefreshing(false);
+        mIdlingResource.setIdleState(true);
+    }
+
+    private void updateRecipesViewsOnSuccess() {
+        mRecipesAdapter.notifyDataSetChanged();
+        mProgressBar.setVisibility(View.INVISIBLE);
+        mErrorMessageTextView.setVisibility(View.INVISIBLE);
+        swipeContainer.setRefreshing(false);
+        mIdlingResource.setIdleState(true);
     }
 
     @Override

@@ -47,10 +47,7 @@ public class RecipesAdapter extends RecyclerView.Adapter<RecipesAdapter.RecipesV
 
     @Override
     public int getItemCount() {
-        if (recipes == null) {
-            return 0;
-        }
-        return recipes.size();
+        return recipes == null ?  0 : recipes.size();
     }
 
     interface RecipesOnClickHandler {
